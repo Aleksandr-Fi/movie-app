@@ -1,8 +1,7 @@
 import { Component } from 'react'
 
-import MovieService from '../service/MovieService'
-
-import FilmsList from './FilmsList'
+import MovieService from '../../service/MovieService'
+import FilmsList from '../FilmsList'
 
 export default class App extends Component {
   movieService = new MovieService()
@@ -10,6 +9,7 @@ export default class App extends Component {
 
   state = {
     filmsData: this.getFilmsList(12),
+    isFetched: false,
   }
 
   getFilmsList(quantity) {
@@ -33,19 +33,16 @@ export default class App extends Component {
   }
 
   updateState() {
-    this.movieService.getPageMovie(1).then((res) => {
-      this.setState({ filmsData: res })
-    })
+    if (!this.state.isFetched) {
+      this.movieService.getPageMovie(1).then((res) => {
+        this.setState({ filmsData: res, isFetched: true })
+      })
+    }
   }
 
   render() {
-    // this.updateState()
+    this.updateState()
     const { filmsData } = this.state
-    return (
-      <div>
-        <h1>Hello React!</h1>
-        <FilmsList filmsData={filmsData} />
-      </div>
-    )
+    return <FilmsList filmsData={filmsData} />
   }
 }
