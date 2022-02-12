@@ -8,7 +8,7 @@ const FilmsList = ({ filmsData }) => {
   }
   return (
     <div>
-      <ul>
+      <ul className="films-list">
         {filmsData.map((film) => {
           return <FilmCard key={film.id} {...film} />
         })}

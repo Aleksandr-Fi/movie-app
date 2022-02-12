@@ -1,4 +1,5 @@
 import { Component } from 'react'
+import { Layout } from 'antd'
 
 import MovieService from '../../service/MovieService'
 import FilmsList from '../FilmsList'
@@ -8,7 +9,7 @@ export default class App extends Component {
   maxId = 1
 
   state = {
-    filmsData: this.getFilmsList(12),
+    filmsData: this.getFilmsList(3),
     isFetched: false,
   }
 
@@ -32,7 +33,7 @@ export default class App extends Component {
     }
   }
 
-  updateState() {
+  componentDidMount() {
     if (!this.state.isFetched) {
       this.movieService.getPageMovie(1).then((res) => {
         this.setState({ filmsData: res, isFetched: true })
@@ -41,8 +42,16 @@ export default class App extends Component {
   }
 
   render() {
-    this.updateState()
     const { filmsData } = this.state
-    return <FilmsList filmsData={filmsData} />
+    const { Header, Footer, Content } = Layout
+    return (
+      <Layout>
+        <Header>Header</Header>
+        <Content>
+          <FilmsList filmsData={filmsData} />
+        </Content>
+        <Footer>Footer</Footer>
+      </Layout>
+    )
   }
 }
