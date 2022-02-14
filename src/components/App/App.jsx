@@ -1,5 +1,6 @@
 import { Component } from 'react'
 import { Layout, Spin, Alert } from 'antd'
+import debounce from 'lodash.debounce'
 
 import MovieService from '../../service/MovieService'
 import FilmsList from '../FilmsList'
@@ -63,7 +64,7 @@ export default class App extends Component {
       <Layout className="body">
         <div className="wrapper">
           <Header className="header">
-            <SearchForm onChange={this.setNewQuery} />
+            <SearchForm onChange={debounce(this.setNewQuery, 1000)} />
           </Header>
           <Content>
             {filmsAlert}
