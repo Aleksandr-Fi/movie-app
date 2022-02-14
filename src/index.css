@@ -1,7 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
 
+.wrapper {
+  width: 1010px;
+  margin: 0 auto;
+}
+
 .header {
+  padding: 0 34px;
   background: #FFFFFF;
+}
+
+.search-form {
+  margin-bottom: 12px;
 }
 
 .spiner {
@@ -9,12 +19,10 @@
 }
 
 .films-list {
-  width: 1010px;
-  margin: 0 auto;
-  padding: 20px 40px 0 30px;
+  padding: 20px 34px;
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 34px;
 
   background: #FFFFFF;
 }

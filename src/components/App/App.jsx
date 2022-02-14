@@ -3,12 +3,20 @@ import { Layout, Spin, Alert } from 'antd'
 
 import MovieService from '../../service/MovieService'
 import FilmsList from '../FilmsList'
+import SearchForm from '../SearchForm'
 
 export default class App extends Component {
   movieService = new MovieService()
-  maxId = 1
+
+  constructor() {
+    super()
+    this.setNewQuery = (newQuery) => {
+      this.setState({ query: newQuery })
+    }
+  }
 
   state = {
+    query: 'return',
     filmsData: null,
     isFetched: false,
     errorFilms: false,
@@ -20,14 +28,25 @@ export default class App extends Component {
     })
   }
 
+  filmsUpdete() {
+    this.movieService
+      .getPageMovie(this.state.query, 1)
+      .then((res) => {
+        this.setState({ filmsData: res })
+      })
+      .catch(this.onError)
+  }
+
   componentDidMount() {
     if (!this.state.isFetched) {
-      this.movieService
-        .getPageMovie(1)
-        .then((res) => {
-          this.setState({ filmsData: res, isFetched: true })
-        })
-        .catch(this.onError)
+      this.filmsUpdete()
+      this.setState({ isFetched: true })
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.query !== prevState.query) {
+      this.filmsUpdete()
     }
   }
 
@@ -41,14 +60,18 @@ export default class App extends Component {
     const filmList = filmsData ? <FilmsList filmsData={filmsData} /> : null
 
     return (
-      <Layout>
-        <Header className="header">Header</Header>
-        <Content>
-          {filmsAlert}
-          {spiner}
-          {filmList}
-        </Content>
-        <Footer>Footer</Footer>
+      <Layout className="body">
+        <div className="wrapper">
+          <Header className="header">
+            <SearchForm onChange={this.setNewQuery} />
+          </Header>
+          <Content>
+            {filmsAlert}
+            {spiner}
+            {filmList}
+          </Content>
+          <Footer>Footer</Footer>
+        </div>
       </Layout>
     )
   }

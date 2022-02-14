@@ -10,8 +10,8 @@ export default class MovieService {
     return await res.json()
   }
 
-  async getPageMovie(page) {
-    const res = await this.getResource('return', page)
+  async getPageMovie(query, page) {
+    const res = await this.getResource(query, page)
     return await res.results
   }
 }
