@@ -42,7 +42,7 @@ export default class App extends Component {
 
     return (
       <Layout>
-        <Header>Header</Header>
+        <Header className="header">Header</Header>
         <Content>
           {filmsAlert}
           {spiner}
