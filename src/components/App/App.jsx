@@ -34,7 +34,7 @@ export default class App extends Component {
   render() {
     const { filmsData, errorFilms } = this.state
     const { Header, Footer, Content } = Layout
-    const alert = errorFilms ? (
+    const filmsAlert = errorFilms ? (
       <Alert message="Error" description="The movie was not found." type="error" showIcon />
     ) : null
     const spiner = !filmsData ? <Spin className="spiner" size="large" /> : null
@@ -44,7 +44,7 @@ export default class App extends Component {
       <Layout>
         <Header>Header</Header>
         <Content>
-          {alert}
+          {filmsAlert}
           {spiner}
           {filmList}
         </Content>
