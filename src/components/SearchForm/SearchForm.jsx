@@ -10,6 +10,7 @@ export default class SearchForm extends Component {
     this.setState({
       text: e.target.value,
     })
+    this.props.onChange(e.target.value)
   }
   onSubmit = (e) => {
     e.preventDefault()
