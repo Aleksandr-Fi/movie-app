@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
 
+.spiner {
+  margin: 5% 49%;
+}
+
 .films-list {
   width: 1010px;
   margin: 0 auto;

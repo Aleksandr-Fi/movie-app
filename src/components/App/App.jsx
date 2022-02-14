@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Layout } from 'antd'
+import { Layout, Spin } from 'antd'
 
 import MovieService from '../../service/MovieService'
 import FilmsList from '../FilmsList'
@@ -9,28 +9,8 @@ export default class App extends Component {
   maxId = 1
 
   state = {
-    filmsData: this.getFilmsList(3),
+    filmsData: null,
     isFetched: false,
-  }
-
-  getFilmsList(quantity) {
-    let arr = []
-    for (let i = 0; i < quantity; i++) {
-      arr.push(this.getFilm())
-    }
-    return arr
-  }
-
-  getFilm() {
-    return {
-      id: this.maxId++,
-      poster: '..image/Rectangle.png',
-      title: 'The way back',
-      releaseDate: '2022-01-01',
-      overview:
-        'A former basketball all-star, who has lost his wife and family foundation in a struggle with addiction attempts to regain his soul  and salvation by becoming the coach of a disparate ethnically mixed high ...',
-      genre: ['Action', 'Drama'],
-    }
   }
 
   componentDidMount() {
@@ -44,11 +24,15 @@ export default class App extends Component {
   render() {
     const { filmsData } = this.state
     const { Header, Footer, Content } = Layout
+    const spiner = !filmsData ? <Spin className="spiner" size="large" /> : null
+    const filmList = filmsData ? <FilmsList filmsData={filmsData} /> : null
+
     return (
       <Layout>
         <Header>Header</Header>
         <Content>
-          <FilmsList filmsData={filmsData} />
+          {spiner}
+          {filmList}
         </Content>
         <Footer>Footer</Footer>
       </Layout>
