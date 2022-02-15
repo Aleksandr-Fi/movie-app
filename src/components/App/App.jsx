@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Layout, Spin, Alert } from 'antd'
+import { Layout, Spin, Alert, Pagination } from 'antd'
 import debounce from 'lodash.debounce'
 
 import MovieService from '../../service/MovieService'
@@ -17,7 +17,9 @@ export default class App extends Component {
   }
 
   state = {
+    page: 1,
     query: 'return',
+    totalResults: null,
     filmsData: null,
     isFetched: false,
     errorFilms: false,
@@ -31,11 +33,22 @@ export default class App extends Component {
 
   filmsUpdete() {
     this.movieService
-      .getPageMovie(this.state.query, 1)
+      .getPageMovie(this.state.query, this.state.page)
       .then((res) => {
         this.setState({ filmsData: res })
       })
       .catch(this.onErrorFilms)
+
+    this.movieService
+      .getTotalResults(this.state.query, this.state.page)
+      .then((res) => {
+        this.setState({ totalResults: res })
+      })
+      .catch(this.onErrorFilms)
+  }
+
+  getTotal() {
+    return Math.ceil(this.state.totalResults / 2)
   }
 
   componentDidMount() {
@@ -60,6 +73,9 @@ export default class App extends Component {
     ) : null
     const spiner = !filmsData ? <Spin className="spiner" size="large" /> : null
     const filmList = filmsData ? <FilmsList filmsData={filmsData} /> : null
+    const pagination = this.state.totalResults ? (
+      <Pagination size="small" total={this.getTotal()} showSizeChanger={false} />
+    ) : null
 
     return (
       <Layout className="body">
@@ -67,12 +83,12 @@ export default class App extends Component {
           <Header className="header">
             <SearchForm onChange={debounce(this.setNewQuery, 1000)} />
           </Header>
-          <Content>
+          <Content className="main">
             {filmsAlert}
             {spiner}
             {filmList}
           </Content>
-          <Footer>Footer</Footer>
+          <Footer className="footer">{pagination}</Footer>
         </div>
       </Layout>
     )

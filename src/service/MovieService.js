@@ -14,4 +14,9 @@ export default class MovieService {
     const res = await this.getResource(query, page)
     return await res.results
   }
+
+  async getTotalResults(query, page) {
+    const res = await this.getResource(query, page)
+    return await res.total_results
+  }
 }
