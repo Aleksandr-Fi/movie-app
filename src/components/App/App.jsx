@@ -23,7 +23,7 @@ export default class App extends Component {
     errorFilms: false,
   }
 
-  onError = () => {
+  onErrorFilms = () => {
     this.setState({
       errorFilms: true,
     })
@@ -35,7 +35,7 @@ export default class App extends Component {
       .then((res) => {
         this.setState({ filmsData: res })
       })
-      .catch(this.onError)
+      .catch(this.onErrorFilms)
   }
 
   componentDidMount() {
