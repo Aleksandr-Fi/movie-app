@@ -47,6 +47,7 @@ export default class App extends Component {
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.query !== prevState.query) {
+      this.setState({ filmsData: false })
       this.filmsUpdete()
     }
   }
