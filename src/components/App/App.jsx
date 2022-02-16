@@ -5,6 +5,7 @@ import debounce from 'lodash.debounce'
 import MovieService from '../../service/MovieService'
 import FilmsList from '../FilmsList'
 import SearchForm from '../SearchForm'
+import { MovieProvider } from '../MovieContext'
 
 export default class App extends Component {
   movieService = new MovieService()
@@ -85,19 +86,21 @@ export default class App extends Component {
     ) : null
 
     return (
-      <Layout className="body">
-        <div className="wrapper">
-          <Header className="header">
-            <SearchForm onChange={debounce(this.setNewQuery, 1000)} />
-          </Header>
-          <Content className="main">
-            {filmsAlert}
-            {spiner}
-            {filmList}
-          </Content>
-          <Footer className="footer">{pagination}</Footer>
-        </div>
-      </Layout>
+      <MovieProvider value={this.state.genre}>
+        <Layout className="body">
+          <div className="wrapper">
+            <Header className="header">
+              <SearchForm onChange={debounce(this.setNewQuery, 1000)} />
+            </Header>
+            <Content className="main">
+              {filmsAlert}
+              {spiner}
+              {filmList}
+            </Content>
+            <Footer className="footer">{pagination}</Footer>
+          </div>
+        </Layout>
+      </MovieProvider>
     )
   }
 }

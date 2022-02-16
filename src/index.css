@@ -74,11 +74,31 @@
   color: #827E7E;
 }
 
-.film-genre {
+.ganers-list {
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  /* justify-content: start; */
   font-size: 12px;
   line-height: 15px;
+}
 
+.btn-ganre {
+  height: 20px;
   color: rgba(0, 0, 0, 0.65);
+  background: #FAFAFA;
+  border: 1px solid #D9D9D9;
+  box-sizing: border-box;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.btn-ganre:hover {
+  color: rgba(0, 0, 0, 085);
+  background: #e7e7e7;
+  border: 1px solid #bebebe;
+
 }
 
 .film-overview {

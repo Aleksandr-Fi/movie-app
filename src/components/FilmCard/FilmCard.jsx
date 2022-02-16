@@ -2,6 +2,8 @@ import { Component } from 'react'
 import { format } from 'date-fns'
 import { Card } from 'antd'
 
+import GenresList from '../GenresList'
+
 export default class FilmCard extends Component {
   state = {
     poster: this.props.poster_path,
@@ -25,7 +27,7 @@ export default class FilmCard extends Component {
         <div className="film-content">
           <h1 className="film-title">{this.state.title}</h1>
           <span className="film-date">{date ? format(new Date(date), 'PP') : null}</span>
-          <div className="film-genre">genre</div>
+          <GenresList genreIds={this.state.genre} />
           <p className="film-overview">{this.getShortText(this.state.overview, 160)}</p>
         </div>
       </Card>
