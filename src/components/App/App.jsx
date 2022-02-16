@@ -14,6 +14,9 @@ export default class App extends Component {
     this.setNewQuery = (newQuery) => {
       this.setState({ query: newQuery })
     }
+    this.onChangePage = (newPage) => {
+      this.setState({ page: newPage })
+    }
   }
 
   state = {
@@ -59,7 +62,7 @@ export default class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.query !== prevState.query) {
+    if (this.state.query !== prevState.query || this.state.page !== prevState.page) {
       this.setState({ filmsData: false })
       this.filmsUpdete()
     }
@@ -74,7 +77,7 @@ export default class App extends Component {
     const spiner = !filmsData ? <Spin className="spiner" size="large" /> : null
     const filmList = filmsData ? <FilmsList filmsData={filmsData} /> : null
     const pagination = this.state.totalResults ? (
-      <Pagination size="small" total={this.getTotal()} showSizeChanger={false} />
+      <Pagination size="small" onChange={this.onChangePage} total={this.getTotal()} showSizeChanger={false} />
     ) : null
 
     return (
