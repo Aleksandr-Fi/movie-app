@@ -28,4 +28,22 @@ export default class MovieService {
     const bodyRes = await res.json()
     return await bodyRes.genres
   }
+
+  async getIdGuestSession() {
+    const res = await fetch(`${this._apiBase}/authentication/guest_session/new?${this._apiKey}`)
+    if (!res.ok) {
+      throw new Error(`failed to create a new guest session, recived ${res.status}`)
+    }
+    const bodyRes = await res.json()
+    return await bodyRes.guest_session_id
+  }
+
+  async getRatedMovies(id, page) {
+    const res = await fetch(`${this._apiBase}/guest_session/${id}/rated/movies?${this._apiKey}&page=${page}`)
+    if (!res.ok) {
+      throw new Error(`failed to get the rated movies for a guest session, recived ${res.status}`)
+    }
+    const bodyRes = await res.json()
+    return await bodyRes.results
+  }
 }
