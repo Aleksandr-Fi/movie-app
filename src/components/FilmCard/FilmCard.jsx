@@ -18,7 +18,7 @@ export default class FilmCard extends Component {
 
   getShortText(str, title) {
     let n = 160
-    if (title.length > 24 && title.length < 48) {
+    if (title.length > 10 && title.length < 48) {
       n = 130
     }
     if (title.length > 48) {
