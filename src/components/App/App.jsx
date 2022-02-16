@@ -28,6 +28,8 @@ export default class App extends Component {
     isFetched: false,
     errorFilms: false,
     genre: null,
+    guestSessionId: null,
+    ratedFilms: null,
   }
 
   onErrorFilms = () => {
@@ -63,6 +65,10 @@ export default class App extends Component {
     }
     this.movieService.getGenre().then((res) => {
       this.setState({ genre: res })
+    })
+    this.movieService.getIdGuestSession().then((res) => {
+      this.setState({ guestSessionId: res }) // работает
+      // return this.movieService.getRatedMovies(res, this.state.page)  //  не работает пока
     })
   }
 
