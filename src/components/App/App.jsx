@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Layout, Spin, Alert, Pagination } from 'antd'
+import { Layout, Spin, Alert, Pagination, Button } from 'antd'
 import debounce from 'lodash.debounce'
 
 import MovieService from '../../service/MovieService'
@@ -90,6 +90,10 @@ export default class App extends Component {
         <Layout className="body">
           <div className="wrapper">
             <Header className="header">
+              <nav className="tabs">
+                <Button className="tabs-btn">Search</Button>
+                <Button className="tabs-btn">Rated</Button>
+              </nav>
               <SearchForm onChange={debounce(this.setNewQuery, 1000)} />
             </Header>
             <Content className="main">

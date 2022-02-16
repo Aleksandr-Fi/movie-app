@@ -6,13 +6,39 @@
   background: #FFFFFF;
 }
 
+.ant-layout-header {
+  height: auto;
+}
+
 .header {
   padding: 0 34px;
   background: #FFFFFF;
 }
 
-.search-form {
-  margin-bottom: 12px;
+.tabs {
+  width: 146px;
+  margin: auto;
+  padding-top: 13px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  border-bottom: #cfcfcfd7 solid 1px;
+}
+
+.tabs-btn {
+  width: 65px;
+  height: 55px;
+  padding: 0;
+  border: none;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.tabs-btn:hover, .tabs-btn:focus {
+  color: #1890FF;
+  border-bottom: #1890FF solid 2px;
 }
 
 .spiner {
