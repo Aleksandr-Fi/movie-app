@@ -26,6 +26,7 @@ export default class App extends Component {
     filmsData: null,
     isFetched: false,
     errorFilms: false,
+    genre: null,
   }
 
   onErrorFilms = () => {
@@ -59,6 +60,9 @@ export default class App extends Component {
       this.filmsUpdete()
       this.setState({ isFetched: true })
     }
+    this.movieService.getGenre().then((res) => {
+      this.setState({ genre: res })
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
