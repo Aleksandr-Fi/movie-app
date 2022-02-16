@@ -1,6 +1,6 @@
 # link to the deployed application
 
-https://movie-map.vercel.app/
+https://movie-map-aleksandr-fi.vercel.app/
 
 # Getting Started with Create React App
 
