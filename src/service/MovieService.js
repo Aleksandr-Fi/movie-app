@@ -38,6 +38,22 @@ export default class MovieService {
     return await bodyRes.guest_session_id
   }
 
+  async setRateFilm(idFilm, guestId, rate) {
+    const res = await fetch(`${this._apiBase}/movie/${idFilm}/rating?${this._apiKey}&guest_session_id=${guestId}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8',
+      },
+      body: JSON.stringify({
+        value: rate,
+      }),
+    })
+    if (!res.ok) {
+      throw new Error(`failed to get the rated movies for a guest session, recived ${res.status}`)
+    }
+    return await res.json()
+  }
+
   async getRatedMovies(id, page) {
     const res = await fetch(`${this._apiBase}/guest_session/${id}/rated/movies?${this._apiKey}&page=${page}`)
     if (!res.ok) {
