@@ -3,7 +3,8 @@ import { MovieConsumer } from '../MovieContext'
 const GenresList = ({ genreIds }) => {
   return (
     <MovieConsumer>
-      {(genreData) => {
+      {({ appState }) => {
+        const genreData = appState.genre
         if (!genreData || !genreIds) {
           return
         }

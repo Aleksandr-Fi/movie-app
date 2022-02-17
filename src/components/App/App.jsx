@@ -100,7 +100,7 @@ export default class App extends Component {
     ) : null
 
     return (
-      <MovieProvider value={this.state.genre}>
+      <MovieProvider value={{ appState: this.state, movieService: this.movieService }}>
         <Layout className="body">
           <div className="wrapper">
             <Header className="header">
