@@ -49,6 +49,12 @@ export default class App extends Component {
     this.setState({ guestSessionId: id })
   }
 
+  ratedFilmsUpdete() {
+    this.movieService.getRatedMovies(this.state.guestSessionId, 1).then((res) => {
+      this.setState({ ratedFilms: res })
+    })
+  }
+
   filmsUpdete() {
     this.movieService
       .getPageMovie(this.state.query, this.state.page)
@@ -63,6 +69,19 @@ export default class App extends Component {
         this.setState({ totalResults: res })
       })
       .catch(this.onErrorFilms)
+  }
+
+  ratedUpdete() {
+    const retedArr = this.state.ratedFilms
+    const filmsData = this.state.filmsData
+    const newArr = filmsData.map((film) => {
+      const idx = retedArr.findIndex((el) => el.id === film.id)
+      if (idx >= 0) {
+        return retedArr[idx]
+      }
+      return film
+    })
+    return newArr
   }
 
   getTotal() {
@@ -84,11 +103,18 @@ export default class App extends Component {
     if (this.state.query !== prevState.query || this.state.page !== prevState.page) {
       this.setState({ filmsData: null, totalResults: null })
       this.filmsUpdete()
+      this.ratedFilmsUpdete()
+    }
+    if (this.state.guestSessionId !== prevState.guestSessionId) {
+      this.ratedFilmsUpdete()
+    }
+    if (this.state.filmsData && this.state.ratedFilms && this.state.ratedFilms !== prevState.ratedFilms) {
+      this.setState({ filmsData: this.ratedUpdete() })
     }
   }
 
   render() {
-    const { filmsData, errorFilms } = this.state
+    const { filmsData, errorFilms, page } = this.state
     const { Header, Footer, Content } = Layout
     const filmsAlert = errorFilms ? (
       <Alert message="Error" description="The movie was not found." type="error" showIcon />
@@ -96,7 +122,13 @@ export default class App extends Component {
     const spiner = !filmsData ? <Spin className="spiner" size="large" /> : null
     const filmList = filmsData ? <FilmsList filmsData={filmsData} /> : null
     const pagination = this.state.totalResults ? (
-      <Pagination size="small" onChange={this.onChangePage} total={this.getTotal()} showSizeChanger={false} />
+      <Pagination
+        size="small"
+        onChange={this.onChangePage}
+        defaultCurrent={page}
+        total={this.getTotal()}
+        showSizeChanger={false}
+      />
     ) : null
 
     return (

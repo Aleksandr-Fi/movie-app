@@ -11,9 +11,7 @@ export default class FilmCard extends Component {
     releaseDate: this.props.release_date,
     genre: this.props.genre_ids,
     overview: this.props.overview,
-    rate: {
-      value: 0,
-    },
+    rate: this.props.rating,
   }
 
   getShortText(str, title) {
@@ -27,6 +25,12 @@ export default class FilmCard extends Component {
     const shortText = str.length > n ? str.substr(0, n - 1) + '&hellip;' : str
     const arrayWords = shortText.split(' ')
     return `${arrayWords.slice(0, -1).join(' ')} ...`
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.rating !== prevProps.rating) {
+      this.setState({ rate: this.props.rating })
+    }
   }
 
   render() {
