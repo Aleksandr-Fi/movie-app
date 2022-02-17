@@ -38,6 +38,17 @@ export default class App extends Component {
     })
   }
 
+  setGuestId() {
+    let id = localStorage.getItem('guestSessionId')
+    if (!id) {
+      this.movieService.getIdGuestSession().then((res) => {
+        id = res
+        localStorage.setItem('guestSessionId', res)
+      })
+    }
+    this.setState({ guestSessionId: id })
+  }
+
   filmsUpdete() {
     this.movieService
       .getPageMovie(this.state.query, this.state.page)
@@ -66,10 +77,9 @@ export default class App extends Component {
     this.movieService.getGenre().then((res) => {
       this.setState({ genre: res })
     })
-    this.movieService.getIdGuestSession().then((res) => {
-      this.setState({ guestSessionId: res }) // работает
-      // return this.movieService.getRatedMovies(res, this.state.page)  //  не работает пока
-    })
+    if (!this.state.guestSessionId) {
+      this.setGuestId()
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {

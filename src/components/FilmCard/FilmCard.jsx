@@ -31,7 +31,6 @@ export default class FilmCard extends Component {
 
   render() {
     const { poster, title, releaseDate, genre, overview, rate } = this.state
-    console.log(this.state.title.length + ' ' + this.state.title)
     return (
       <Card className="film-card" hoverable style={{ width: 454, height: 280 }}>
         <img className="film-poster" alt="poster" src={`https://image.tmdb.org/t/p/w185${poster}`} />
