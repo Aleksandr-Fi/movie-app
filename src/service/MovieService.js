@@ -46,4 +46,10 @@ export default class MovieService {
     const bodyRes = await res.json()
     return await bodyRes.results
   }
+
+  async getRatedTotal(id, page) {
+    const res = await fetch(`${this._apiBase}/guest_session/${id}/rated/movies?${this._apiKey}&page=${page}`)
+    const bodyRes = await res.json()
+    return await bodyRes.total_results
+  }
 }
