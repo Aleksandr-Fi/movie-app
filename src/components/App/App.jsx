@@ -77,9 +77,7 @@ export default class App extends Component {
     this.movieService.getGenre().then((res) => {
       this.setState({ genre: res })
     })
-    if (!this.state.guestSessionId) {
-      this.setGuestId()
-    }
+    this.setGuestId()
   }
 
   componentDidUpdate(prevProps, prevState) {
