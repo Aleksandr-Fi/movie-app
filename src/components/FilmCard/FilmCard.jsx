@@ -8,8 +8,9 @@ export default class FilmCard extends Component {
   constructor(props) {
     super(props)
     this.onChangeRate = async (newRate) => {
+      this.setState({ rate: newRate })
       await this.props.filmContext.movieService.setRateFilm(this.props.id, this.state.guestId, newRate)
-      // this.props.filmContext.ratedUpdete()
+      this.props.filmContext.ratedUpdete()
     }
   }
 

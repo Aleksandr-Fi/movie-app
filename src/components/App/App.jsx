@@ -21,6 +21,9 @@ export default class App extends Component {
     this.onChangeTabs = (newProp) => {
       this.setState({ tabSearch: newProp, page: 1 })
     }
+    this.ratedUpdete = () => {
+      this.ratedDataUpdete()
+    }
   }
 
   state = {
@@ -79,7 +82,7 @@ export default class App extends Component {
       .catch(this.onErrorFilms)
   }
 
-  ratedUpdete() {
+  addRatedFilms() {
     const retedArr = this.state.ratedData
     const filmsData = this.state.filmsData
     const newArr = filmsData.map((film) => {
@@ -108,7 +111,11 @@ export default class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.query !== prevState.query || this.state.page !== prevState.page) {
+    if (
+      this.state.query !== prevState.query ||
+      this.state.page !== prevState.page ||
+      this.state.tabSearch !== prevState.tabSearch
+    ) {
       this.setState({ filmsData: null, totalSearch: null, totalRated: null })
       this.filmsUpdete()
       this.ratedDataUpdete()
@@ -117,7 +124,7 @@ export default class App extends Component {
       this.ratedDataUpdete()
     }
     if (this.state.filmsData && this.state.ratedData && this.state.ratedData !== prevState.ratedData) {
-      this.setState({ filmsData: this.ratedUpdete() })
+      this.setState({ filmsData: this.addRatedFilms() })
     }
   }
 
@@ -143,7 +150,7 @@ export default class App extends Component {
     ) : null
 
     return (
-      <MovieProvider value={{ appState: this.state, movieService: this.movieService }}>
+      <MovieProvider value={{ appState: this.state, movieService: this.movieService, ratedUpdete: this.ratedUpdete }}>
         <Layout className="body">
           <div className="wrapper">
             <Header className="header">
