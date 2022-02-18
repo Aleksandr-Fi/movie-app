@@ -10,7 +10,6 @@ export default class FilmCard extends Component {
     this.onChangeRate = async (newRate) => {
       await this.props.filmContext.movieService.setRateFilm(this.props.id, this.state.guestId, newRate)
       // this.props.filmContext.ratedUpdete()
-      console.log(`change Rate ${this.props.id} film`)
     }
   }
 
