@@ -32,7 +32,7 @@ export default class App extends Component {
     query: 'return',
     totalSearch: null,
     totalRated: null,
-    filmsData: null,
+    searchData: null,
     isFetched: false,
     errorFilms: false,
     genre: null,
@@ -70,7 +70,7 @@ export default class App extends Component {
     this.movieService
       .getPageMovie(this.state.query, this.state.page)
       .then((res) => {
-        this.setState({ filmsData: res })
+        this.setState({ searchData: res })
       })
       .catch(this.onErrorFilms)
 
@@ -84,8 +84,8 @@ export default class App extends Component {
 
   addRatedFilms() {
     const retedArr = this.state.ratedData
-    const filmsData = this.state.filmsData
-    const newArr = filmsData.map((film) => {
+    const searchData = this.state.searchData
+    const newArr = searchData.map((film) => {
       const idx = retedArr.findIndex((el) => el.id === film.id)
       if (idx >= 0) {
         return retedArr[idx]
@@ -93,6 +93,26 @@ export default class App extends Component {
       return film
     })
     return newArr
+  }
+
+  getFilmList() {
+    if (this.state.tabSearch && this.state.searchData) {
+      return <FilmsList filmsData={this.state.searchData} />
+    }
+    if (!this.state.tabSearch && this.state.ratedData) {
+      return <FilmsList filmsData={this.state.ratedData} />
+    }
+    return null
+  }
+
+  getFilmAlert() {
+    if (this.state.tabSearch && this.state.errorFilms) {
+      return <Alert message="Error" description="The movie was not found." type="error" showIcon />
+    }
+    if (!this.state.tabSearch && this.state.ratedData && !this.state.ratedData.length) {
+      return <Alert message="the rated movies were not found." type="info" />
+    }
+    return null
   }
 
   getTotal(total) {
@@ -116,33 +136,28 @@ export default class App extends Component {
       this.state.page !== prevState.page ||
       this.state.tabSearch !== prevState.tabSearch
     ) {
-      this.setState({ filmsData: null, totalSearch: null, totalRated: null })
+      this.setState({ searchData: null, totalSearch: null, totalRated: null })
       this.filmsUpdete()
       this.ratedDataUpdete()
     }
     if (this.state.guestSessionId !== prevState.guestSessionId) {
       this.ratedDataUpdete()
     }
-    if (this.state.filmsData && this.state.ratedData && this.state.ratedData !== prevState.ratedData) {
-      this.setState({ filmsData: this.addRatedFilms() })
+    if (this.state.searchData && this.state.ratedData && this.state.ratedData !== prevState.ratedData) {
+      this.setState({ searchData: this.addRatedFilms() })
     }
   }
 
   render() {
-    const { filmsData, errorFilms, page, tabSearch, ratedData, totalSearch, totalRated } = this.state
+    const { page, tabSearch, totalSearch, totalRated } = this.state
     const { Header, Footer, Content } = Layout
-    const filmsAlert = errorFilms ? (
-      <Alert message="Error" description="The movie was not found." type="error" showIcon />
-    ) : null
+
+    const filmList = this.getFilmList()
+    const filmsAlert = this.getFilmAlert()
+
     const searchForm = tabSearch ? <SearchForm onChange={debounce(this.setNewQuery, 1000)} /> : null
-    const spiner = !filmsData ? <Spin className="spiner" size="large" /> : null
-    const filmList = filmsData && tabSearch ? <FilmsList filmsData={filmsData} /> : null
-    const ratedFilms =
-      ratedData && !tabSearch && ratedData.length ? (
-        <FilmsList filmsData={ratedData} />
-      ) : (
-        <Alert message="the rated movies were not found." type="info" />
-      )
+    const spiner = !filmList ? <Spin className="spiner" size="large" /> : null
+
     const totalResults = tabSearch ? totalSearch : totalRated
     const pagination = totalResults ? (
       <Pagination
@@ -173,7 +188,6 @@ export default class App extends Component {
               {filmsAlert}
               {spiner}
               {filmList}
-              {ratedFilms}
             </Content>
             <Footer className="footer">{pagination}</Footer>
           </div>
