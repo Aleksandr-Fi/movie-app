@@ -5,7 +5,17 @@ import { Card, Rate } from 'antd'
 import GenresList from '../GenresList'
 
 export default class FilmCard extends Component {
+  constructor(props) {
+    super(props)
+    this.onChangeRate = async (newRate) => {
+      await this.props.filmContext.movieService.setRateFilm(this.props.id, this.state.guestId, newRate)
+      // this.props.filmContext.ratedUpdete()
+      console.log(`change Rate ${this.props.id} film`)
+    }
+  }
+
   state = {
+    guestId: this.props.filmContext.appState.guestSessionId,
     poster: this.props.poster_path,
     title: this.props.original_title,
     releaseDate: this.props.release_date,
@@ -43,7 +53,13 @@ export default class FilmCard extends Component {
           <span className="film-date">{releaseDate ? format(new Date(releaseDate), 'PP') : null}</span>
           <GenresList genreIds={genre} />
           <p className="film-overview">{this.getShortText(overview, title)}</p>
-          <Rate className="rate" count={10} value={rate} style={{ fontSize: 16, width: 239 }} />
+          <Rate
+            className="rate"
+            count={10}
+            value={rate}
+            style={{ fontSize: 16, width: 239 }}
+            onChange={this.onChangeRate}
+          />
         </div>
       </Card>
     )

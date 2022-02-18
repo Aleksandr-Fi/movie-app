@@ -1,17 +1,25 @@
 import propTypes from 'prop-types'
 
 import FilmCard from '../FilmCard/FilmCard'
+import { MovieConsumer } from '../MovieContext'
 
 const FilmsList = ({ filmsData }) => {
   FilmsList.propTypes = {
     filmsData: propTypes.array.isRequired,
   }
+
   return (
     <div>
       <ul className="films-list">
-        {filmsData.map((film) => {
-          return <FilmCard key={film.id} {...film} />
-        })}
+        <MovieConsumer>
+          {(context) => {
+            {
+              return filmsData.map((film) => {
+                return <FilmCard key={film.id} {...film} filmContext={context} />
+              })
+            }
+          }}
+        </MovieConsumer>
       </ul>
     </div>
   )
