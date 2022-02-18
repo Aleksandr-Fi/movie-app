@@ -137,7 +137,12 @@ export default class App extends Component {
     const searchForm = tabSearch ? <SearchForm onChange={debounce(this.setNewQuery, 1000)} /> : null
     const spiner = !filmsData ? <Spin className="spiner" size="large" /> : null
     const filmList = filmsData && tabSearch ? <FilmsList filmsData={filmsData} /> : null
-    const ratedFilms = ratedData && !tabSearch ? <FilmsList filmsData={ratedData} /> : null
+    const ratedFilms =
+      ratedData && !tabSearch && ratedData.length ? (
+        <FilmsList filmsData={ratedData} />
+      ) : (
+        <Alert message="the rated movies were not found." type="info" />
+      )
     const totalResults = tabSearch ? totalSearch : totalRated
     const pagination = totalResults ? (
       <Pagination
