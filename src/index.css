@@ -84,7 +84,14 @@
   font-weight: normal;
 }
 
+.vote-circle {
+  position:absolute;
+  right: 0;
+  margin-right: 8px;
+}
+
 .film-title {
+  width: 200px;
   margin: 0;
 
   font-size: 20px;

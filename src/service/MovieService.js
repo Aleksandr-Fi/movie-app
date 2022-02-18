@@ -49,9 +49,18 @@ export default class MovieService {
       }),
     })
     if (!res.ok) {
-      throw new Error(`failed to get the rated movies for a guest session, recived ${res.status}`)
+      throw new Error(`failed to send movie rating, recived ${res.status}`)
     }
     return await res.json()
+  }
+
+  async getRateFilm(idFilm) {
+    const res = await fetch(`${this._apiBase}/movie/${idFilm}?${this._apiKey}`)
+    if (!res.ok) {
+      throw new Error(`failed to get the movie rated, recived ${res.status}`)
+    }
+    const bodyRes = await res.json()
+    return await bodyRes.vote_average
   }
 
   async getRatedMovies(id, page) {
