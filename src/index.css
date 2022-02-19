@@ -1,24 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
 
 .wrapper {
-  width: 1010px;
   margin: 0 auto;
-  background: #FFFFFF;
-}
-
-.ant-layout-header {
-  height: auto;
-}
-
-.header {
-  padding: 0 34px;
   background: #FFFFFF;
 }
 
 .tabs {
   width: 146px;
   margin: auto;
-  padding-top: 13px;
+  margin-bottom: 18px;
   display: flex;
   justify-content: center;
   gap: 16px;
@@ -41,6 +31,19 @@
   border-bottom: #1890FF solid 2px;
 }
 
+.ant-layout-header {
+  height: auto;
+}
+
+.search-form {
+  margin: -18px auto 0 auto;
+}
+
+.header {
+  padding: 0 12px;
+  background: #FFFFFF;
+}
+
 .spiner {
   margin: 5% 49%;
 }
@@ -50,7 +53,7 @@
 }
 
 .films-list {
-  padding: 20px 34px;
+  padding: 0;
   margin: 0;
   display: flex;
   flex-wrap: wrap;
@@ -59,21 +62,27 @@
   
 }
 
+.film-card {
+  width: 387px;
+  height: 245px;
+  margin: auto;
+}
+
 .ant-card-body {
-  padding: 0;
+  padding: 6px 8px;
   display:flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 .film-poster {
-  width: 183px;
-  height: 279px;
+  width: 60px;
+  height: 91px;
 }
 
-.film-content {
-  padding-top: 12px;
-  padding-left: 20px;
-  padding-right: 20px;
+.film-info {
+  width: 280px;
+  padding-left: 13px;
   
   display:flex;
   flex-direction: column;
@@ -91,7 +100,7 @@
 }
 
 .film-title {
-  width: 200px;
+  width: 260px;
   margin: 0;
 
   font-size: 20px;
@@ -112,7 +121,6 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  /* justify-content: start; */
   font-size: 12px;
   line-height: 15px;
 }
@@ -135,12 +143,25 @@
 }
 
 .film-overview {
-  margin: 0;
+  color: #000000;
+}
 
+.overview-tab {
+  display: none;
+}
+
+.overview-mobile {
+  margin: 0;
   font-size: 12px;
   line-height: 22px;
 
-  color: #000000;
+}
+
+.rate {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-bottom: 10px;
 }
 
 .footer {
@@ -148,4 +169,68 @@
   display: flex;
   justify-content: center;
   background: #FFFFFF;
+}
+
+@media (min-width: 1010px) {
+  .wrapper {
+    width: 1010px;
+  }
+  
+  .tabs {
+  padding-top: 13px;
+}
+
+  .header {
+    padding: 0 34px;
+  }
+
+  .films-list {
+    padding: 20px 34px;
+  }
+    
+  .film-card {
+    width: 454px;
+    height: 281px;
+  }
+
+  .ant-card-body {
+    padding: 0;
+    display:flex;
+    flex-direction: row;
+  }
+
+  .film-poster {
+    width: 183px;
+    height: 279px;
+  }
+
+  .vote-circle {
+    top: 10px;
+  }
+
+  .film-title {
+    width: 210px;
+    margin-top: 10px;
+  }
+
+  .film-info {
+    width: 264px;
+    padding-left: 20px;
+  }
+
+  .film-overview {
+    width: 228px;
+  }
+
+  .overview-tab {
+    display: block;
+  }
+
+  .overview-mobile {
+    display: none;
+  }
+
+  .rate {
+    margin-right: 10px;
+  }
 }
