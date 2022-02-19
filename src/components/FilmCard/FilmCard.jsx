@@ -26,21 +26,26 @@ export default class FilmCard extends Component {
   }
 
   getShortText(str, title) {
-    let n = 160
-    if (title.length > 10 && title.length < 48) {
-      n = 130
+    const strCount = window.innerWidth <= 1010 ? 325 : 180
+    const strLength = window.innerWidth <= 1010 ? 65 : 32
+    const titleStringLength = window.innerWidth <= 1010 ? 24 : 10
+    const gebreArrayLength = window.innerWidth <= 1010 ? 3 : 3
+
+    const spaceString =
+      (Math.ceil(title.length / titleStringLength) + Math.ceil(this.state.genre.length / gebreArrayLength) - 2) *
+      strLength
+    const n = strCount - spaceString
+
+    if (str.length > n) {
+      const shortText = str.substr(0, n - 1)
+      const arrayWords = shortText.split(' ')
+      return `${arrayWords.slice(0, -1).join(' ')} ...`
     }
-    if (title.length > 48) {
-      n = 100
-    }
-    const shortText = str.length > n ? str.substr(0, n - 1) + '&hellip;' : str
-    const arrayWords = shortText.split(' ')
-    return `${arrayWords.slice(0, -1).join(' ')} ...`
+    return str
   }
 
   updateRate() {
     this.props.filmContext.movieService.getRateFilm(this.props.id).then((res) => {
-      console.log(res)
       this.setState({ voteAverage: res })
     })
   }
@@ -70,10 +75,11 @@ export default class FilmCard extends Component {
 
   render() {
     const { poster, title, releaseDate, genre, overview, rate } = this.state
+
     return (
-      <Card className="film-card" hoverable style={{ width: 454, height: 280 }}>
+      <Card className="film-card" hoverable>
         <img className="film-poster" alt="poster" src={`https://image.tmdb.org/t/p/w185${poster}`} />
-        <div className="film-content">
+        <div className="film-info">
           <Progress
             className="vote-circle"
             type="circle"
@@ -84,15 +90,16 @@ export default class FilmCard extends Component {
           <h1 className="film-title">{title}</h1>
           <span className="film-date">{releaseDate ? format(new Date(releaseDate), 'PP') : null}</span>
           <GenresList genreIds={genre} />
-          <p className="film-overview">{this.getShortText(overview, title)}</p>
-          <Rate
-            className="rate"
-            count={10}
-            value={rate}
-            style={{ fontSize: 16, width: 239 }}
-            onChange={this.onChangeRate}
-          />
+          <p className="film-overview overview-tab">{this.getShortText(overview, title)}</p>
         </div>
+        <p className="film-overview overview-mobile">{this.getShortText(overview, title)}</p>
+        <Rate
+          className="rate"
+          count={10}
+          value={rate}
+          style={{ fontSize: 16, width: 239 }}
+          onChange={this.onChangeRate}
+        />
       </Card>
     )
   }
