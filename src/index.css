@@ -1,6 +1,7 @@
 @import url(https://fonts.googleapis.com/css?family=Inter:100,200,300,regular,500,600,700,800,900);
 
 .wrapper {
+  width: 420px;
   margin: 0 auto;
   background: #FFFFFF;
 }
