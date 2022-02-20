@@ -78,7 +78,7 @@ export default class FilmCard extends Component {
 
     return (
       <Card className="film-card" hoverable>
-        <img className="film-poster" alt="poster" src={`https://image.tmdb.org/t/p/w185${poster}`} />
+        <img className="film-poster" alt="title" src={`https://image.tmdb.org/t/p/w185${poster}`} />
         <div className="film-info">
           <Progress
             className="vote-circle"
