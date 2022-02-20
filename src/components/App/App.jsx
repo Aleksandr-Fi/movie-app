@@ -5,7 +5,7 @@ import debounce from 'lodash.debounce'
 import MovieService from '../../service/MovieService'
 import FilmsList from '../FilmsList'
 import SearchForm from '../SearchForm'
-import { MovieProvider } from '../../MovieContext'
+import { MovieProvider } from '../../context'
 
 export default class App extends Component {
   movieService = new MovieService()

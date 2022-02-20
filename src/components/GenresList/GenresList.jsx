@@ -1,4 +1,4 @@
-import { MovieConsumer } from '../../MovieContext'
+import { MovieConsumer } from '../../context'
 
 const GenresList = ({ genreIds }) => {
   return (
