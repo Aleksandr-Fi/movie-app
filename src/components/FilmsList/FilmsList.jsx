@@ -1,7 +1,7 @@
 import propTypes from 'prop-types'
 
 import FilmCard from '../FilmCard/FilmCard'
-import { MovieConsumer } from '../MovieContext'
+import { MovieConsumer } from '../../MovieContext'
 
 const FilmsList = ({ filmsData }) => {
   FilmsList.propTypes = {
