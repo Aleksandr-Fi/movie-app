@@ -34,8 +34,15 @@ export default class App extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.state.query !== prevState.query || this.state.page !== prevState.page) {
-      this.setState({ searchData: [], totalSearch: null, totalRated: [], errorFilms: false, searchGuide: false })
+    if (this.state.query !== prevState.query) {
+      this.setState({ searchGuide: false })
+    }
+    if (
+      this.state.query !== prevState.query ||
+      this.state.page !== prevState.page ||
+      this.state.tabSearch !== prevState.tabSearch
+    ) {
+      this.setState({ searchData: null, totalSearch: null, totalRated: null, errorFilms: false })
       this.filmsUpdete()
       this.ratedDataUpdete()
     }
@@ -53,13 +60,13 @@ export default class App extends Component {
     query: '',
     totalSearch: null,
     totalRated: null,
-    searchData: [],
+    searchData: null,
     isFetched: false,
     errorFilms: false,
     searchGuide: true,
     genre: null,
     guestSessionId: null,
-    ratedData: [],
+    ratedData: null,
   }
 
   onErrorFilms = () => {
@@ -142,7 +149,7 @@ export default class App extends Component {
         />
       )
     }
-    if (this.state.tabSearch && (this.state.errorFilms || !this.state.searchData.length)) {
+    if (this.state.tabSearch && (this.state.errorFilms || (this.state.searchData && !this.state.searchData.length))) {
       return <Alert message="Error" description="Error when searching for a movie" type="error" showIcon />
     }
     if (!this.state.tabSearch && this.state.ratedData && !this.state.ratedData.length) {
@@ -159,7 +166,7 @@ export default class App extends Component {
     const filmsAlert = this.getFilmAlert()
 
     const searchForm = tabSearch ? <SearchForm onChange={debounce(this.setNewQuery, 1000)} /> : null
-    const spiner = !filmList.length && !searchGuide ? <Spin className="spiner" size="large" /> : null
+    const spiner = !filmList && !searchGuide ? <Spin className="spiner" size="large" /> : null
 
     const totalResults = tabSearch ? totalSearch : totalRated
     const pagination = totalResults ? (
