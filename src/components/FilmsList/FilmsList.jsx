@@ -14,9 +14,7 @@ const FilmsList = ({ filmsData }) => {
         <MovieConsumer>
           {(context) => {
             {
-              return filmsData.map((film) => {
-                return <FilmCard key={film.id} {...film} filmContext={context} />
-              })
+              return filmsData.map((film) => <FilmCard key={film.id} {...film} filmContext={context} />)
             }
           }}
         </MovieConsumer>
