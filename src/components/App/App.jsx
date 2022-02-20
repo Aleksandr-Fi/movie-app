@@ -35,6 +35,7 @@ export default class App extends Component {
     searchData: null,
     isFetched: false,
     errorFilms: false,
+    filmAlert: false,
     genre: null,
     guestSessionId: null,
     ratedData: null,
@@ -107,6 +108,9 @@ export default class App extends Component {
 
   getFilmAlert() {
     if (this.state.tabSearch && this.state.errorFilms) {
+      return <Alert message="Error" description="Error when searching for a movie" type="error" showIcon />
+    }
+    if (this.state.tabSearch && this.state.searchData && !this.state.searchData.length) {
       return <Alert message="Error" description="The movie was not found." type="error" showIcon />
     }
     if (!this.state.tabSearch && this.state.ratedData && !this.state.ratedData.length) {
@@ -136,7 +140,7 @@ export default class App extends Component {
       this.state.page !== prevState.page ||
       this.state.tabSearch !== prevState.tabSearch
     ) {
-      this.setState({ searchData: null, totalSearch: null, totalRated: null })
+      this.setState({ searchData: null, totalSearch: null, totalRated: null, errorFilms: false, filmAlert: false })
       this.filmsUpdete()
       this.ratedDataUpdete()
     }
@@ -149,6 +153,7 @@ export default class App extends Component {
   }
 
   render() {
+    console.log(this.state.searchData)
     const { page, tabSearch, totalSearch, totalRated } = this.state
     const { Header, Footer, Content } = Layout
 
