@@ -14,6 +14,16 @@ export default class FilmCard extends Component {
     }
   }
 
+  componentDidMount() {
+    this.updateRate()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.rating !== prevProps.rating) {
+      this.setState({ rate: this.props.rating })
+    }
+  }
+
   state = {
     guestId: this.props.filmContext.appState.guestSessionId,
     poster: this.props.poster_path,
@@ -61,16 +71,6 @@ export default class FilmCard extends Component {
       return '#E9D100'
     }
     return '#66E900'
-  }
-
-  componentDidMount() {
-    this.updateRate()
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.rating !== prevProps.rating) {
-      this.setState({ rate: this.props.rating })
-    }
   }
 
   render() {
