@@ -158,6 +158,19 @@ export default class App extends Component {
     return null
   }
 
+  getTabsClass(generalTab) {
+    if (!generalTab) {
+      return {
+        search: 'tabs-btn',
+        rated: 'tabs-btn tab-active',
+      }
+    }
+    return {
+      search: 'tabs-btn tab-active',
+      rated: 'tabs-btn',
+    }
+  }
+
   render() {
     const { page, tabSearch, totalSearch, totalRated, searchGuide } = this.state
     const { Header, Footer, Content } = Layout
@@ -185,10 +198,10 @@ export default class App extends Component {
           <div className="wrapper">
             <Header className="header">
               <nav className="tabs">
-                <Button className="tabs-btn" onClick={() => this.onChangeTabs(true)}>
+                <Button className={this.getTabsClass(tabSearch).search} onClick={() => this.onChangeTabs(true)}>
                   Search
                 </Button>
-                <Button className="tabs-btn" onClick={() => this.onChangeTabs(false)}>
+                <Button className={this.getTabsClass(tabSearch).rated} onClick={() => this.onChangeTabs(false)}>
                   Rated
                 </Button>
               </nav>

@@ -33,6 +33,11 @@
   border-bottom: #1890FF solid 2px;
 }
 
+.tab-active {
+  color: #1890FF;
+  border-bottom: #1890FF solid 2px;
+}
+
 .ant-layout-header {
   height: auto;
 }
