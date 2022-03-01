@@ -1,5 +1,5 @@
 import { Component } from 'react'
-import { Layout, Spin, Alert, Pagination, Button } from 'antd'
+import { Layout, Spin, Alert, Pagination, Button, Empty } from 'antd'
 import debounce from 'lodash.debounce'
 
 import MovieService from '../../service/MovieService'
@@ -141,19 +141,35 @@ export default class App extends Component {
   getFilmAlert() {
     if (this.state.tabSearch && this.state.searchGuide) {
       return (
-        <Alert
-          message="Search guide"
-          description="To search for movies, start typing the name of the movie."
-          type="info"
-          showIcon
-        />
+        <div>
+          <Alert
+            message="Search guide"
+            description="To search for movies, start typing the name of the movie."
+            type="info"
+            showIcon
+          />
+          <Empty
+            imageStyle={{
+              margin: 10,
+            }}
+          />
+        </div>
       )
     }
     if (this.state.tabSearch && (this.state.errorFilms || (this.state.searchData && !this.state.searchData.length))) {
       return <Alert message="Error" description="Error when searching for a movie" type="error" showIcon />
     }
     if (!this.state.tabSearch && this.state.ratedData && !this.state.ratedData.length) {
-      return <Alert message="the rated movies were not found." type="info" />
+      return (
+        <div>
+          <Alert message="the rated movies were not found." type="info" />
+          <Empty
+            imageStyle={{
+              margin: 10,
+            }}
+          />
+        </div>
+      )
     }
     return null
   }
