@@ -9,12 +9,12 @@ const GenresList = ({ genreIds }) => {
           return
         }
         return (
-          <ul className="ganers-list">
+          <ul className="geners-list">
             {genreIds.map((id) => {
               const idx = genreData.findIndex((el) => el.id === id)
               const name = genreData[idx].name
               return (
-                <button className="btn-ganre" key={id}>
+                <button className="btn-genre" key={id}>
                   {name}
                 </button>
               )

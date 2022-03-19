@@ -119,7 +119,7 @@
   color: #827E7E;
 }
 
-.ganers-list {
+.geners-list {
   padding: 0;
   display: flex;
   flex-wrap: wrap;
@@ -128,7 +128,7 @@
   line-height: 15px;
 }
 
-.btn-ganre {
+.btn-genre {
   height: 20px;
   color: rgba(0, 0, 0, 0.65);
   background: #FAFAFA;
